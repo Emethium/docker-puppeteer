@@ -22,16 +22,3 @@ ENV PUPPETEER_SKIP_CHROMIUM_DOWNLOAD true
 
 # Puppeteer v1.12.2 works with Chromium 73.
 RUN yarn add puppeteer@1.17.0
-
-# Install Puppeteer under /node_modules so it's available system-wide
-#ADD package.json package-lock.json /
-#RUN npm install
-
-# Add user so we don't need --no-sandbox.
-RUN addgroup -S pptruser && adduser -S -g pptruser pptruser \
-    && mkdir -p /home/pptruser/Downloads /app \
-    && chown -R pptruser:pptruser /home/pptruser \
-    && chown -R pptruser:pptruser /app
-
-# Run everything after as non-privileged user.
-USER pptruser
